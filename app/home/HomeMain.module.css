@@ -1,0 +1,492 @@
+.section {
+  --bg: #080808;
+  --panel: #1a1c1c;
+  --panel-2: #1e2020;
+  --text-primary: #e3e2e2;
+  --text-secondary: #c4c7c7;
+  --text-tertiary: #8e9192;
+  --line: #444748;
+  --line-soft: rgba(68, 71, 72, 0.4);
+  --accent: #e3e2e2;
+  --chip: #1a1c1c;
+
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+  padding: clamp(24px, 4vw, 48px) clamp(16px, 3vw, 48px) clamp(32px, 6vw, 72px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.taglineRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-bottom: 8px;
+}
+
+.taglineGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: 0 0 auto;
+}
+
+.taglineText {
+  margin: 0;
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.taglineChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  background: var(--chip);
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  white-space: nowrap;
+}
+
+.headlineBlock {
+  padding: 8px 0;
+}
+
+.headline {
+  margin: 0;
+  max-width: 1024px;
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.8rem, 8vw, 6rem);
+  line-height: 1.125;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.introGrid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 32px;
+  align-items: end;
+  padding: 8px 0 16px;
+}
+
+.introText {
+  margin: 0;
+  max-width: 672px;
+  font-family: var(--font-inter), "Inter", Arial, sans-serif;
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  line-height: 1.611;
+  letter-spacing: -0.01em;
+  color: var(--text-secondary);
+}
+
+.ctaGroup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.ctaGhost,
+.ctaSolid {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 24px;
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease,
+    color 0.2s ease;
+}
+
+.ctaGhost {
+  color: var(--text-primary);
+  box-shadow: inset 0 0 0 1px rgba(227, 226, 226, 0.4);
+}
+
+.ctaGhost:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: inset 0 0 0 1px var(--text-primary),
+    4px 4px 0 rgba(227, 226, 226, 0.12);
+}
+
+.ctaSolid {
+  background: var(--text-primary);
+  color: var(--bg);
+  font-weight: 700;
+}
+
+.ctaSolid:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 rgba(227, 226, 226, 0.16);
+}
+
+.visualWrap {
+  display: grid;
+  grid-template-columns: minmax(0, 2.02fr) minmax(0, 1fr);
+  gap: 8px;
+  align-items: stretch;
+}
+
+.visualMain {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(280px, 48vw, 540px);
+  overflow: hidden;
+  isolation: isolate;
+  cursor: pointer;
+}
+
+/* Main image layer */
+.visualMainImage {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("/hero-main.jpg");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1);
+  filter: grayscale(100%);
+  transition:
+    transform 800ms cubic-bezier(0.2, 0.65, 0.3, 1),
+    filter 600ms ease;
+}
+
+/* Hover: zoom in and restore color */
+.visualMain:hover .visualMainImage {
+  transform: scale(1.07);
+  filter: grayscale(0%);
+}
+
+.visualMainOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgba(8, 8, 8, 0.2);
+  transition: background 500ms ease;
+  pointer-events: none;
+}
+
+.visualMain:hover .visualMainOverlay {
+  background: rgba(8, 8, 8, 0.05);
+}
+
+.visualMainGradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg,
+      #080808 0%,
+      rgba(8, 8, 8, 0) 55%,
+      rgba(8, 8, 8, 0) 100%);
+  opacity: 0.9;
+  z-index: 1;
+}
+
+.visualMainInfo {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: clamp(16px, 3vw, 24px);
+}
+
+.visualMainInfoText {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.visualMainLabel {
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.visualMainTitle {
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.2rem, 2vw, 1.25rem);
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+
+.visualMainSub {
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+.visualSide {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sideImage {
+  position: relative;
+  flex: 1 1 260px;
+  min-height: clamp(200px, 24vw, 260px);
+  background-color: #171a1a;
+  overflow: hidden;
+  isolation: isolate;
+  cursor: pointer;
+}
+
+.sideImage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: url("/hero-2.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(100%);
+  transform: scale(1);
+  transition: filter 600ms ease, transform 800ms cubic-bezier(0.2, 0.65, 0.3, 1);
+}
+
+.sideImage:hover::before {
+  filter: grayscale(0%);
+  transform: scale(1.08);
+}
+
+.sideImageTag {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  padding: 6px 8px;
+  background: rgba(8, 8, 8, 0.9);
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.sideCard {
+  display: flex;
+  flex-direction: column;
+  gap: 70px;
+  /* padding: clamp(18px, 2.4vw, 24px); */
+  padding: 24px;
+  background: var(--panel-2);
+}
+
+.sideCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sideCardLabel {
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.sideCardDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.sideCardStat {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.sideCardNumber {
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.8rem, 5vw, 3.25rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+}
+
+.sideCardUnit {
+  padding-bottom: 6px;
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-weight: 500;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  color: var(--text-secondary);
+}
+
+.sideCardText {
+  margin: 0;
+  max-width: 34ch;
+  font-family: var(--font-inter), "Inter", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.538;
+  color: var(--text-secondary);
+}
+
+.sideCardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid var(--line-soft);
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.sideCardArrow {
+  width: 10px;
+  height: 10px;
+  background: var(--accent);
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+.scrollRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 24px;
+}
+
+.scrollGroup {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.scrollIcon {
+  width: 9px;
+  height: 13px;
+  background: var(--text-secondary);
+  transform: rotate(180deg);
+  clip-path: polygon(50% 0, 100% 40%, 65% 40%, 65% 100%, 35% 100%, 35% 40%, 0 40%);
+}
+
+.scrollText {
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.scrollBar {
+  width: 160px;
+  height: 2px;
+  background: var(--line);
+}
+
+.scrollBarFill {
+  width: 32px;
+  height: 100%;
+  background: var(--accent);
+}
+
+@media (max-width: 1080px) {
+  .introGrid {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .ctaGroup {
+    justify-content: flex-start;
+  }
+
+  .visualWrap {
+    grid-template-columns: 1fr;
+  }
+
+  .visualSide {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .visualSide {
+    grid-template-columns: 1fr;
+  }
+
+  .sideCard {
+    gap: 40px;
+  }
+
+  .scrollRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 560px) {
+  .taglineRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ctaGhost,
+  .ctaSolid {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visualMainImage,
+  .visualMainOverlay,
+  .sideImage,
+  .sideImage::before {
+    transition: none;
+  }
+
+  .visualMain:hover .visualMainImage,
+  .sideImage:hover::before {
+    transform: none;
+  }
+}

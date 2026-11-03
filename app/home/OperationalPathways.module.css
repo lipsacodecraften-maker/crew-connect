@@ -1,0 +1,375 @@
+
+.section {
+  padding: 40px 48px;
+  background: #121414;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 1280px;
+  margin-inline: auto;
+}
+
+.topRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 20px;
+  padding-bottom: 4px;
+}
+
+.eyebrow,
+.topNote {
+  margin: 0;
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  color: #8e9192;
+}
+
+.topNote {
+  color: #c4c7c7;
+}
+
+/* Cards layout */
+.panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+}
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  min-width: 0;
+  padding: 48px;
+
+  border: 1px solid transparent;
+
+  transition:
+    transform 300ms ease,
+    box-shadow 300ms ease,
+    border-color 300ms ease;
+}
+
+/* Hover effect: movement and shadow only */
+.panel:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.panelDark {
+  background: #1a1c1c;
+  color: #e3e2e2;
+}
+
+.panelLight {
+  background: #f4f4f1;
+  color: #080808;
+}
+
+/* Preserve original card colors on hover */
+.panelDark:hover {
+  background: #1a1c1c;
+  border-color: #303333;
+}
+
+.panelLight:hover {
+  background: #f4f4f1;
+  border-color: #deded8;
+}
+
+/* Card content */
+.panelBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 24px;
+}
+
+.panelHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  padding-bottom: 16px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.panelDark .badge {
+  background: #1e2020;
+  color: #e3e2e2;
+}
+
+.panelLight .badge {
+  background: #e2e2de;
+  color: #080808;
+}
+
+/* Header arrows */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  transition: transform 300ms ease;
+}
+
+.icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.panelDark .icon {
+  color: #c4c7c7;
+}
+
+.panelLight .icon {
+  color: #505050;
+}
+
+.panel:hover .icon {
+  transform: translate(3px, -3px);
+}
+
+/* Heading */
+.heading {
+  width: 100%;
+  margin: 0;
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 38px;
+  letter-spacing: -0.7px;
+  text-transform: uppercase;
+}
+
+.panelDark .heading {
+  color: #e3e2e2;
+}
+
+.panelLight .heading {
+  color: #080808;
+}
+
+/* Description */
+.copy {
+  width: 100%;
+  margin: 0;
+  padding-top: 6.875px;
+  font-family: var(--font-inter), "Inter", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.panelDark .copy {
+  color: #c4c7c7;
+}
+
+.panelLight .copy {
+  color: #333333;
+}
+
+/* Tags */
+.tagsBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  padding-top: 24px;
+}
+
+.tagsLabel {
+  margin: 0;
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.panelDark .tagsLabel {
+  color: #8e9192;
+}
+
+.panelLight .tagsLabel {
+  color: #666666;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag {
+  padding: 4px 12px;
+  font-family: var(--font-inter), "Inter", Arial, sans-serif;
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: 0.13px;
+  text-transform: uppercase;
+}
+
+.panelDark .tag {
+  background: #1e2020;
+  color: #e3e2e2;
+  font-weight: 400;
+}
+
+.panelLight .tag {
+  background: #e5e5e0;
+  color: #080808;
+  font-weight: 500;
+}
+
+/* CTA buttons */
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 16px 24px;
+  font-family: var(--font-grotesk), "Space Grotesk", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  transition:
+    background 200ms ease,
+    transform 200ms ease;
+}
+
+.ctaDark {
+  background: #292a2a;
+  color: #e3e2e2;
+}
+
+.ctaLight {
+  background: #080808;
+  color: #ffffff;
+}
+
+.ctaDark:hover {
+  background: #333535;
+}
+
+.ctaLight:hover {
+  background: #1e2020;
+}
+
+.cta span {
+  display: inline-block;
+  font-size: 14px;
+  line-height: 1;
+  transition: transform 250ms ease;
+}
+
+.cta:hover span {
+  transform: translate(2px, -2px);
+}
+
+/* Tablet */
+@media (max-width: 1100px) {
+  .section {
+    padding: clamp(28px, 5vw, 40px)
+      clamp(20px, 4vw, 48px);
+  }
+
+  .panel {
+    padding: clamp(28px, 4vw, 48px);
+  }
+
+  .heading {
+    font-size: clamp(22px, 2.4vw, 28px);
+    line-height: 1.35;
+  }
+}
+
+/* Single-column layout */
+@media (max-width: 860px) {
+  .panels {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .topRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .panel {
+    padding: 24px 20px;
+  }
+
+  .panelHeader {
+    flex-wrap: wrap;
+  }
+
+  .heading {
+    font-size: 24px;
+    line-height: 1.32;
+  }
+
+  .cta {
+    padding: 14px 18px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .icon,
+  .cta,
+  .cta span {
+    transition: none;
+  }
+
+  .panel:hover,
+  .panel:hover .icon,
+  .cta:hover span {
+    transform: none;
+  }
+}
