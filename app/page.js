@@ -1,24 +1,27 @@
+import StaffingServices from "./home/Staffing/StaffingServices";
+import EventCategories from "./home/Event-Categories/EventCategories";
+import HowItWorks from "./home/How-It-Works/HowItWorks";
+import WhyChooseUs from "./home/WhyChooseUs/WhyChooseUs";
+import CitiesWeServe from "./home/CitiesWeServe/CitiesWeServe";
+import ClientCTA from "./home/ClientCTA/ClientCTA";
+import StaffCTA from "./home/StaffCTA/StaffCTA";
+import FAQ from "./home/FAQ/FAQ";
+import ContactSupport from "./home/ContactSupport/ContactSupport";
 import HomeMain from "./home/HomeMain";
-import OperationalPathways from "./home/OperationalPathways";
-import PhilosophySection from "./home/PhilosophySection";
-import FieldArchitecture from "./home/FieldArchitecture";
-import SectorProfiles from "./home/SectorProfiles";
-import WorkflowMechanics from "./home/WorkflowMechanics";
-import FieldNotes from "./home/FieldNotes";
-import DeploymentReady from "./home/DeploymentReady";
-import SectionReveal from "./home/SectionReveal";
 
 export default function Home() {
   return (
     <main id="main">
-      <SectionReveal><HomeMain /></SectionReveal>
-      <SectionReveal delay={50}><PhilosophySection /></SectionReveal>
-      <SectionReveal delay={100}><OperationalPathways /></SectionReveal>
-      <SectionReveal delay={50}><FieldArchitecture /></SectionReveal>
-      <SectionReveal delay={100}><SectorProfiles /></SectionReveal>
-      <SectionReveal delay={50}><WorkflowMechanics /></SectionReveal>
-      <SectionReveal delay={100}><FieldNotes /></SectionReveal>
-      <SectionReveal delay={50}><DeploymentReady /></SectionReveal>
+      <HomeMain/>
+      <StaffingServices />
+      <EventCategories />
+      <HowItWorks />
+      <WhyChooseUs />
+      <CitiesWeServe />
+      <ClientCTA />
+      <StaffCTA />
+      <FAQ />
+      <ContactSupport />
     </main>
   );
 }

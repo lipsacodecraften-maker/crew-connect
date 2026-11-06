@@ -1,3 +1,4 @@
+
 import {
   Anton,
   Archivo,
@@ -5,6 +6,7 @@ import {
   Space_Grotesk,
   Space_Mono,
 } from "next/font/google";
+
 import SiteHeader from "./components/SiteHeader";
 import SiteFooter from "./components/SiteFooter";
 import "./globals.css";
@@ -43,9 +45,14 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Crew Connect — Event Crew Across Gujarat",
+  title: "CrewConnect | Event Staffing Gujarat",
   description:
-    "Crew Connect deploys vetted event crew across Gujarat. Hire staff or join the crew.",
+    "Professional event staffing and manpower solutions across Gujarat.",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -57,7 +64,7 @@ export default function RootLayout({ children }) {
       <body>
         <SiteHeader />
         {children}
-        <SiteFooter />
+        {/* <SiteFooter /> */}
       </body>
     </html>
   );

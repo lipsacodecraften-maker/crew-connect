@@ -1,0 +1,430 @@
+.page {
+  background: #0c0c0c;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.container {
+  width: min(1240px, calc(100% - 48px));
+  margin: 0 auto;
+}
+
+/* Hero */
+
+.hero {
+  padding: 35px 0 0;
+  background: #111;
+  border-bottom: 1px solid #303030;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 65px;
+  color: #777;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+.breadcrumb a {
+  color: #aaa;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: #f28c28;
+}
+
+.eyebrow {
+  display: inline-block;
+  color: #f28c28;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.heroContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  padding: 25px 0 35px;
+}
+
+.heroContent h1 {
+  max-width: 850px;
+  margin: 0;
+  font-size: clamp(38px, 6vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -3px;
+  font-weight: 800;
+}
+
+.heroContent h1 span {
+  color: #f28c28;
+}
+
+.heroContent p {
+  max-width: 650px;
+  margin: 24px 0 0;
+  color: #aaa;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+/* 
+.heroCount {
+  min-width: 190px;
+  padding: 25px;
+  border: 1px solid #393939;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.heroCount strong {
+  color: #f28c28;
+  font-size: 70px;
+  line-height: 1;
+}
+
+.heroCount > span {
+  color: #ddd;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+}
+
+.countLine {
+  width: 100%;
+  height: 1px;
+  margin: 10px 0;
+  background: #393939;
+}
+
+.heroCount small {
+  color: #777;
+  font-size: 8px;
+  letter-spacing: 1px;
+} */
+
+.heroBottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 17px 0;
+  border-top: 1px solid #333;
+  color: #777;
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+
+/* Category section */
+
+.categoriesSection {
+  padding: 90px 0 110px;
+}
+
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.sectionHeader h2 {
+  margin: 14px 0 10px;
+  font-size: clamp(30px, 4vw, 43px);
+  letter-spacing: -1.5px;
+}
+
+.sectionHeader p {
+  max-width: 580px;
+  margin: 0;
+  color: #999;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.totalCount {
+  padding: 12px 15px;
+  border: 1px solid #383838;
+  color: #f28c28;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+/* Grid */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+/* Card */
+
+.card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: #151515;
+  border: 1px solid #292929;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  border-color: #f28c28;
+  transform: translateY(-5px);
+}
+
+/* Image container */
+
+.imagePlaceholder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #242424;
+  border-bottom: 1px solid #333;
+  overflow: hidden;
+}
+
+.categoryImage {
+  object-fit: cover;
+  object-position: center;
+  filter: grayscale(100%);
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.card:hover .categoryImage {
+  transform: scale(1.06);
+  filter: grayscale(0%);
+}
+
+.imageNumber {
+  position: absolute;
+  z-index: 2;
+  top: 15px;
+  left: 17px;
+  padding: 5px 9px;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Card content */
+
+.cardContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 25px;
+}
+
+.cardIndex {
+  color: #f28c28;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.cardContent h3 {
+  min-height: 58px;
+  margin: 13px 0 10px;
+  font-size: 21px;
+  line-height: 1.35;
+  font-weight: 700;
+}
+
+.cardDescription {
+  min-height: 67px;
+  margin: 0;
+  color: #999;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+/* Staffing roles */
+
+.roles {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #333;
+}
+
+.rolesHeading {
+  display: block;
+  margin-bottom: 12px;
+  color: #888;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+}
+
+.roleList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.roleTag {
+  padding: 7px 10px;
+  background: #242424;
+  border: 1px solid #353535;
+  color: #ccc;
+  font-size: 10px;
+}
+
+/* Hire button */
+
+.hireButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  padding: 18px 0 0;
+  border-top: 1px solid #333;
+  margin-top: 25px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.hireButton:hover {
+  color: #f28c28;
+}
+
+.arrow {
+  color: #f28c28;
+  font-size: 19px;
+}
+
+/* Bottom CTA */
+
+.ctaSection {
+  padding: 85px 0;
+  background: #151515;
+  border-top: 1px solid #333;
+}
+
+.ctaContent {
+  max-width: 780px;
+}
+
+.ctaContent h2 {
+  margin: 17px 0;
+  font-size: clamp(35px, 5vw, 57px);
+  line-height: 1.1;
+  letter-spacing: -2px;
+}
+
+.ctaContent h2 span {
+  color: #f28c28;
+}
+
+.ctaContent p {
+  max-width: 600px;
+  color: #999;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 22px;
+  padding: 16px 23px;
+  background: #f28c28;
+  color: #111;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+.ctaButton:hover {
+  background: #fff;
+}
+
+/* Responsive */
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .heroContent {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 700px) {
+  .container {
+    width: calc(100% - 32px);
+  }
+
+  .breadcrumb {
+    margin-bottom: 40px;
+  }
+
+  .heroContent {
+    flex-direction: column;
+    padding-bottom: 40px;
+  }
+
+  .heroContent h1 {
+    letter-spacing: -1.5px;
+  }
+
+  .heroCount {
+    width: 100%;
+  }
+
+  .heroBottom {
+    flex-direction: column;
+    line-height: 1.6;
+  }
+
+  .categoriesSection {
+    padding: 65px 0;
+  }
+
+  .sectionHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .cardContent {
+    padding: 20px;
+  }
+
+  .cardContent h3,
+  .cardDescription {
+    min-height: auto;
+  }
+
+  .ctaSection {
+    padding: 65px 0;
+  }
+
+  .ctaContent h2 {
+    letter-spacing: -1px;
+  }
+}

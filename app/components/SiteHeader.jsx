@@ -1,16 +1,21 @@
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import styles from "./SiteHeader.module.css";
+import { FiMapPin } from 'react-icons/fi';
 
 const NAV_LINKS = [
   { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "Events", href: "/events" },
-  { label: "Blogs", href: "/blogs" },
+  { label: "About Us", href: "/about-us" },
+  { label: "Our Services", href: "/services" },
+  { label: "Event Categories", href: "/event-categories" },
+  { label: "Hire Manpower", href: "/hire-staff" },
+  { label: "Join as Staff", href: "/join-crew" },
+  { label: "Available Jobs", href: "/available-jobs" },
+  { label: "Contact Us", href: "/contact-us" },
 ];
 
 export default function SiteHeader() {
@@ -70,16 +75,22 @@ export default function SiteHeader() {
           <Link
             className={styles.brand}
             href="/"
-            aria-label="Crew Connect, home"
+            aria-label="CrewConnect Home"
           >
-            <span className={styles.brandCopy}>
-              <span className={styles.brandName}>
-                Crew Connect
-              </span>
+            <Image
+              src="/logo-1.png"
+              alt="CrewConnect"
+              width={150}
+              height={45}
+              priority
+              unoptimized
+              key="/logo.png"
+              className={styles.logo}
+            />
 
-              <span className={styles.brandLocation}>
+            <span className={styles.brandLocation}>
+              <FiMapPin className={styles.locationIcon} /> 
                 Gujarat, IN
-              </span>
             </span>
           </Link>
 
@@ -92,9 +103,8 @@ export default function SiteHeader() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className={`${styles.navLink} ${
-                    isActive ? styles.navLinkActive : ""
-                  }`}
+                  className={`${styles.navLink} ${isActive ? styles.navLinkActive : ""
+                    }`}
                   aria-current={isActive ? "page" : undefined}
                 >
                   {/* <span className={styles.navIndex}>
@@ -109,34 +119,7 @@ export default function SiteHeader() {
             })}
           </nav>
 
-          {/* Desktop action buttons */}
-          <div className={styles.actions}>
-            <Link
-              className={`${styles.button} ${styles.buttonSolid}`}
-              href="/hire-staff"
-            >
-              Hire staff
-              <span
-                className={styles.buttonArrow}
-                aria-hidden="true"
-              >
-                →
-              </span>
-            </Link>
-
-            <Link
-              className={`${styles.button} ${styles.buttonOutline}`}
-              href="/join-crew"
-            >
-              Join the crew
-              <span
-                className={styles.buttonArrow}
-                aria-hidden="true"
-              >
-                ↗
-              </span>
-            </Link>
-          </div>
+          {/* Desktop action buttons removed per request */}
 
           {/* Mobile menu toggle */}
           <button
@@ -193,9 +176,8 @@ export default function SiteHeader() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className={`${styles.menuLink} ${
-                    isActive ? styles.navLinkActive : ""
-                  }`}
+                  className={`${styles.menuLink} ${isActive ? styles.navLinkActive : ""
+                    }`}
                   aria-current={isActive ? "page" : undefined}
                   onClick={() => setMenuOpen(false)}
                 >

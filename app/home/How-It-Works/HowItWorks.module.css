@@ -1,0 +1,368 @@
+.workflowSection {
+  width: 100%;
+  padding: 55px 48px;
+  margin: 0;
+  background: #0c0c0c;
+  color: #ffffff;
+}
+
+.workflowContainer {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+/* HEADER */
+
+.workflowHeader {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.workflowHeading {
+  max-width: 680px;
+  min-width: 0;
+}
+
+.workflowEyebrow {
+   display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #f28c28;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 22px;
+}
+
+.dot{
+    width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #f28c28;
+  box-shadow: 0 0 12px #f28c2870;
+  
+}
+
+.workflowHeading h2 {
+  margin: 0;
+  color: #ffffff;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(34px, 4vw, 48px);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -1.5px;
+}
+
+.workflowHeading h2 span {
+  color: #f58220;
+}
+
+.workflowIntro {
+  max-width: 550px;
+  margin: 16px 0 0;
+  color: #a9a9a9;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  line-height: 23px;
+}
+
+/* TABS */
+
+.workflowTabs {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  padding: 4px;
+  background: #171717;
+  border: 1px solid #303030;
+}
+
+.workflowTab {
+  min-height: 42px;
+  padding: 10px 22px;
+  border: none;
+  background: transparent;
+  color: #aaaaaa;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.workflowTab.active {
+  background: #f58220;
+  color: #111111;
+}
+
+.workflowTab:hover:not(.active) {
+  color: #ffffff;
+}
+
+.workflowTab:focus-visible {
+  outline: 2px solid #f58220;
+  outline-offset: 3px;
+}
+
+/* WORKFLOW GRID */
+
+.workflowGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* CARDS */
+
+.workflowCard {
+  display: flex;
+  min-width: 0;
+  min-height: 285px;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 25px 23px;
+  background: #171717;
+  border: 1px solid #292929;
+  transition:
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    background 0.3s ease;
+}
+
+.workflowCard:hover {
+  border-color: #f58220;
+  background: #1c1c1c;
+  transform: translateY(-5px);
+}
+
+.workflowCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 38px;
+}
+
+.workflowPhase {
+  color: #f58220;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.workflowNumber {
+  color: #343434;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+  transition: color 0.3s ease;
+}
+
+.workflowCard:hover .workflowNumber {
+  color: #f58220;
+}
+
+.workflowCard h3 {
+  margin: 0 0 14px;
+  color: #ffffff;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: -0.3px;
+}
+
+.workflowDescription {
+  margin: 0;
+  color: #a8a8a8;
+  font-family: "Inter", sans-serif;
+  font-size: 13px;
+  line-height: 22px;
+}
+
+/* CARD FOOTER */
+
+.workflowCardFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 16px;
+  border-top: 1px solid #303030;
+  color: #888888;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+.workflowArrow {
+  color: #f58220;
+  font-size: 17px;
+  transition: transform 0.25s ease;
+}
+
+.workflowCard:hover .workflowArrow {
+  transform: translate(3px, -3px);
+}
+
+/* BOTTOM CTA */
+
+.workflowBottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px 25px;
+  background: #171717;
+  border: 1px solid #292929;
+}
+
+.workflowBottom p {
+  margin: 0;
+  color: #ffffff;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.workflowCta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  min-height: 44px;
+  padding: 0 20px;
+  background: #f58220;
+  color: #111111;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-decoration: none;
+  transition: background 0.25s ease;
+}
+
+.workflowCta:hover {
+  background: #ffffff;
+}
+
+.workflowCta span {
+  font-size: 17px;
+}
+
+/* TABLET */
+
+@media (max-width: 1100px) {
+  .workflowSection {
+    padding: 65px 28px;
+  }
+
+  .workflowHeader {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .workflowGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .workflowCard {
+    min-height: 255px;
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+  .workflowSection {
+    padding: 40px 16px;
+  }
+
+  .workflowContainer {
+    gap: 25px;
+  }
+
+  .workflowHeading h2 {
+    font-size: clamp(29px, 8vw, 36px);
+    letter-spacing: -0.8px;
+  }
+
+  .workflowIntro {
+    font-size: 13px;
+    line-height: 21px;
+  }
+
+  .workflowTabs {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .workflowTab {
+    min-width: 0;
+    padding: 10px 7px;
+    font-size: 10px;
+  }
+
+  .workflowGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .workflowCard {
+    min-height: 0;
+    padding: 22px;
+  }
+
+  .workflowCardTop {
+    margin-bottom: 25px;
+  }
+
+  .workflowCard h3 {
+    font-size: 19px;
+  }
+
+  .workflowBottom {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .workflowBottom p {
+    font-size: 12px;
+    line-height: 19px;
+  }
+
+  .workflowCta {
+    width: 100%;
+  }
+}
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  .workflowCard,
+  .workflowTab,
+  .workflowNumber,
+  .workflowArrow,
+  .workflowCta {
+    transition: none;
+  }
+
+  .workflowCard:hover {
+    transform: none;
+  }
+}
