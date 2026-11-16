@@ -1,0 +1,431 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model BookingRequest {
+  id                   String   @id
+  trackingToken        String   @unique @map("tracking_token")
+  status               String   @default("received")
+  clientCompanyName    String   @map("client_company_name")
+  contactPerson        String   @map("contact_person")
+  mobileNumber         String   @map("mobile_number")
+  whatsappNumber       String   @map("whatsapp_number")
+  emailAddress         String   @map("email_address")
+  companyType          String   @map("company_type")
+  eventName            String   @map("event_name")
+  eventType            String   @map("event_type")
+  eventCity            String   @map("event_city")
+  state                String
+  venueAddress         String   @map("venue_address")
+  mapsLocation         String?  @map("maps_location")
+  eventStartDate       String   @map("event_start_date")
+  eventEndDate         String   @map("event_end_date")
+  reportingTime        String   @map("reporting_time")
+  dutyStartTime        String   @map("duty_start_time")
+  dutyEndTime          String   @map("duty_end_time")
+  guestCount           Int      @map("guest_count")
+  budgetPerPerson      Float    @map("budget_per_person")
+  foodProvided         Boolean  @map("food_provided")
+  transportProvided    Boolean  @map("transport_provided")
+  accommodationProvided Boolean @map("accommodation_provided")
+  dressCode            String   @map("dress_code")
+  languageRequirements String   @map("language_requirements")
+  additionalNotes      String?  @map("additional_notes")
+  urgent               Boolean  @default(false)
+  referenceFileName    String?  @map("reference_file_name")
+  referenceFileType    String?  @map("reference_file_type")
+  referenceFileSize    Int?     @map("reference_file_size")
+  referenceFileData    Bytes?   @map("reference_file_data")
+  totalStaff           Int      @map("total_staff")
+  createdAt            String   @map("created_at")
+  updatedAt            String   @map("updated_at")
+
+  staffingRequirements StaffingRequirement[]
+  statusEvents         BookingStatusEvent[]
+  notifications        BookingNotification[]
+  quotation            Quotation?
+  assignments          EventAssignment[]
+
+  @@index([emailAddress], map: "idx_bookings_email")
+  @@map("booking_requests")
+}
+
+model StaffingRequirement {
+  id                    Int     @id @default(autoincrement())
+  bookingId             String  @map("booking_id")
+  roleIndex             Int     @map("role_index")
+  staffRole             String  @map("staff_role")
+  genderPreference      String  @map("gender_preference")
+  quantity              Int
+  workDate              String  @map("work_date")
+  reportingTime         String  @map("reporting_time")
+  shiftDuration         Float   @map("shift_duration")
+  experienceRequirement String  @map("experience_requirement")
+  uniformRequirement    String  @map("uniform_requirement")
+  specialInstructions   String? @map("special_instructions")
+
+  booking BookingRequest @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId], map: "idx_staffing_booking_id")
+  @@map("staffing_requirements")
+}
+
+model BookingStatusEvent {
+  id        Int     @id @default(autoincrement())
+  bookingId String  @map("booking_id")
+  status    String
+  note      String?
+  createdAt String  @map("created_at")
+
+  booking BookingRequest @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId], map: "idx_status_events_booking_id")
+  @@map("booking_status_events")
+}
+
+model BookingNotification {
+  id            Int     @id @default(autoincrement())
+  bookingId     String  @map("booking_id")
+  channel       String
+  recipientType String  @map("recipient_type")
+  recipient     String?
+  status        String
+  provider      String?
+  subject       String?
+  error         String?
+  createdAt     String  @map("created_at")
+
+  booking BookingRequest @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([bookingId], map: "idx_notifications_booking_id")
+  @@map("booking_notifications")
+}
+
+model StaffRegistration {
+  id                 String   @id
+  status             String   @default("pending_review")
+  fullName           String   @map("full_name")
+  mobileNumber       String   @map("mobile_number")
+  whatsappVerified   Boolean  @default(false) @map("whatsapp_verified")
+  emailAddress       String   @map("email_address")
+  dateOfBirth        String   @map("date_of_birth")
+  age                Int
+  currentCity        String   @map("current_city")
+  areaPincode        String   @map("area_pincode")
+  languages          String
+  skills             String
+  otherSkill         String?  @map("other_skill")
+  experienceLevel    String   @map("experience_level")
+  yearsExperience    Float    @default(0) @map("years_experience")
+  previousEvents     String?  @map("previous_events")
+  expectedPayment    Float    @map("expected_payment")
+  preferredCities    String   @map("preferred_cities")
+  availableFrom      String   @map("available_from")
+  availableUntil     String   @map("available_until")
+  shiftTypes         String   @map("shift_types")
+  willingToTravel    Boolean  @map("willing_to_travel")
+  transportAvailable Boolean  @map("transport_available")
+  profilePhotoName   String   @map("profile_photo_name")
+  profilePhotoType   String   @map("profile_photo_type")
+  profilePhotoSize   Int      @map("profile_photo_size")
+  profilePhotoData   Bytes    @map("profile_photo_data")
+  documentsConsent   Boolean  @default(false) @map("documents_consent")
+  privacyConsent     Boolean  @map("privacy_consent")
+  termsConsent       Boolean  @map("terms_consent")
+  ageConfirmed       Boolean  @map("age_confirmed")
+  createdAt          String   @map("created_at")
+  updatedAt          String   @map("updated_at")
+
+  documents    StaffDocument[]
+  statusEvents StaffStatusEvent[]
+  assignments  EventAssignment[]
+  workHistory  StaffWorkHistory[]
+  sessions     StaffSession[]
+
+  @@index([emailAddress], map: "idx_staff_email")
+  @@index([mobileNumber], map: "idx_staff_mobile")
+  @@index([status], map: "idx_staff_status")
+  @@map("staff_registrations")
+}
+
+model StaffDocument {
+  id             Int    @id @default(autoincrement())
+  registrationId String @map("registration_id")
+  documentKind   String @map("document_kind")
+  documentType   String? @map("document_type")
+  fileName       String @map("file_name")
+  fileType       String @map("file_type")
+  fileSize       Int    @map("file_size")
+  encryptedData  Bytes  @map("encrypted_data")
+  createdAt      String @map("created_at")
+
+  registration StaffRegistration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+
+  @@index([registrationId], map: "idx_staff_documents_registration")
+  @@map("staff_documents")
+}
+
+model StaffStatusEvent {
+  id             Int     @id @default(autoincrement())
+  registrationId String  @map("registration_id")
+  status         String
+  note           String?
+  createdAt      String  @map("created_at")
+
+  registration StaffRegistration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+
+  @@index([registrationId], map: "idx_staff_status_events_registration")
+  @@map("staff_status_events")
+}
+
+model StaffOtpChallenge {
+  id                    Int     @id @default(autoincrement())
+  mobileNumber          String  @map("mobile_number")
+  codeHash              String  @map("code_hash")
+  attempts              Int     @default(0)
+  expiresAt             String  @map("expires_at")
+  verifiedAt            String? @map("verified_at")
+  verificationTokenHash String? @map("verification_token_hash")
+  verificationExpiresAt String? @map("verification_expires_at")
+  consumedAt            String? @map("consumed_at")
+  createdAt             String  @map("created_at")
+
+  @@index([mobileNumber, createdAt], map: "idx_staff_otp_mobile")
+  @@map("staff_otp_challenges")
+}
+
+model JobListing {
+  id                 String   @id
+  status             String   @default("draft")
+  eventType          String   @map("event_type")
+  jobRole            String   @map("job_role")
+  eventCity          String   @map("event_city")
+  eventDate          String   @map("event_date")
+  endDate            String?  @map("end_date")
+  dutyStartTime      String?  @map("duty_start_time")
+  dutyEndTime        String?  @map("duty_end_time")
+  dutyHours          Float?   @map("duty_hours")
+  paymentMin         Float?   @map("payment_min")
+  paymentMax         Float?   @map("payment_max")
+  openings           Int      @default(1)
+  experienceRequired String   @default("Any") @map("experience_required")
+  summary            String?
+  bookingRef         String?  @map("booking_ref")
+  requirementRef     Int?     @map("requirement_ref")
+  createdAt          String   @map("created_at")
+  updatedAt          String   @map("updated_at")
+  publishedAt        String?  @map("published_at")
+
+  applications JobApplication[]
+
+  @@index([status, eventDate], map: "idx_job_listings_status_date")
+  @@index([eventCity], map: "idx_job_listings_city")
+  @@map("job_listings")
+}
+
+model JobApplication {
+  id             String  @id
+  listingId      String  @map("listing_id")
+  registrationId String  @map("registration_id")
+  status         String  @default("submitted")
+  note           String?
+  createdAt      String  @map("created_at")
+  updatedAt      String  @map("updated_at")
+
+  listing  JobListing            @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  events   JobApplicationEvent[]
+
+  @@unique([listingId, registrationId])
+  @@index([listingId], map: "idx_job_applications_listing")
+  @@index([registrationId], map: "idx_job_applications_registration")
+  @@map("job_applications")
+}
+
+model JobApplicationEvent {
+  id            Int     @id @default(autoincrement())
+  applicationId String  @map("application_id")
+  status        String
+  note          String?
+  createdAt     String  @map("created_at")
+
+  application JobApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId], map: "idx_job_application_events_application")
+  @@map("job_application_events")
+}
+
+// ---------------------------------------------------------------------------
+// Admin dashboard: authentication, RBAC, dispatch and commercial workflows
+// ---------------------------------------------------------------------------
+
+model AdminUser {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  passwordHash String    @map("password_hash")
+  role         String    @default("coordinator")
+  status       String    @default("active")
+  lastLoginAt  DateTime? @map("last_login_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  sessions  AdminSession[]
+  auditLogs AdminAuditLog[]
+
+  @@index([role], map: "idx_admin_users_role")
+  @@index([status], map: "idx_admin_users_status")
+  @@map("admin_users")
+}
+
+model AdminSession {
+  id         String    @id @default(cuid())
+  adminId    String    @map("admin_id")
+  tokenHash  String    @unique @map("token_hash")
+  userAgent  String?   @map("user_agent")
+  ipHash     String?   @map("ip_hash")
+  createdAt  DateTime  @default(now()) @map("created_at")
+  lastSeenAt DateTime  @default(now()) @map("last_seen_at")
+  expiresAt  DateTime  @map("expires_at")
+  revokedAt  DateTime? @map("revoked_at")
+
+  admin AdminUser @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([adminId], map: "idx_admin_sessions_admin")
+  @@index([expiresAt], map: "idx_admin_sessions_expiry")
+  @@map("admin_sessions")
+}
+
+model AdminAuditLog {
+  id         String   @id @default(cuid())
+  adminId    String?  @map("admin_id")
+  action     String
+  entityType String   @map("entity_type")
+  entityId   String?  @map("entity_id")
+  detail     String?
+  ipHash     String?  @map("ip_hash")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  admin AdminUser? @relation(fields: [adminId], references: [id], onDelete: SetNull)
+
+  @@index([createdAt], map: "idx_admin_audit_created")
+  @@index([entityType, entityId], map: "idx_admin_audit_entity")
+  @@map("admin_audit_logs")
+}
+
+model Quotation {
+  id         String   @id @default(cuid())
+  bookingId  String   @unique @map("booking_id")
+  status     String   @default("draft")
+  currency   String   @default("INR")
+  taxPercent Float    @default(18) @map("tax_percent")
+  subtotal   Float    @default(0)
+  taxAmount  Float    @default(0) @map("tax_amount")
+  total      Float    @default(0)
+  notes      String?
+  validUntil String?  @map("valid_until")
+  createdBy  String?  @map("created_by")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  booking   BookingRequest       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  lineItems QuotationLineItem[]
+
+  @@map("quotations")
+}
+
+model QuotationLineItem {
+  id             String  @id @default(cuid())
+  quotationId    String  @map("quotation_id")
+  requirementRef Int?    @map("requirement_ref")
+  label          String
+  quantity       Int     @default(1)
+  days           Int     @default(1)
+  unitRate       Float   @default(0) @map("unit_rate")
+  amount         Float   @default(0)
+  note           String?
+  position       Int     @default(0)
+
+  quotation Quotation @relation(fields: [quotationId], references: [id], onDelete: Cascade)
+
+  @@index([quotationId], map: "idx_quotation_items_quotation")
+  @@map("quotation_line_items")
+}
+
+model StaffSession {
+  id             String    @id @default(cuid())
+  registrationId String    @map("registration_id")
+  tokenHash      String    @unique @map("token_hash")
+  userAgent      String?   @map("user_agent")
+  ipHash         String?   @map("ip_hash")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  lastSeenAt     DateTime  @default(now()) @map("last_seen_at")
+  expiresAt      DateTime  @map("expires_at")
+  revokedAt      DateTime? @map("revoked_at")
+
+  registration StaffRegistration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+
+  @@index([registrationId], map: "idx_staff_sessions_registration")
+  @@index([expiresAt], map: "idx_staff_sessions_expiry")
+  @@map("staff_sessions")
+}
+
+model EventAssignment {
+  id               String    @id @default(cuid())
+  bookingId        String    @map("booking_id")
+  requirementRef   Int?      @map("requirement_ref")
+  listingId        String?   @map("listing_id")
+  applicationId    String?   @map("application_id")
+  registrationId   String    @map("registration_id")
+  role             String
+  city             String
+  workDate         String    @map("work_date")
+  shiftStart       String?   @map("shift_start")
+  shiftEnd         String?   @map("shift_end")
+  status           String    @default("proposed")
+  attendanceStatus String    @default("pending") @map("attendance_status")
+  payRate          Float?    @map("pay_rate")
+  notes            String?
+  checkInAt        DateTime? @map("check_in_at")
+  checkOutAt       DateTime? @map("check_out_at")
+  attendanceNotes  String?   @map("attendance_notes")
+  completedAt      DateTime? @map("completed_at")
+  createdBy        String?   @map("created_by")
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  booking      BookingRequest     @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  registration StaffRegistration  @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+  history      StaffWorkHistory[]
+
+  @@index([bookingId], map: "idx_assignments_booking")
+  @@index([registrationId, workDate], map: "idx_assignments_staff_date")
+  @@index([status, workDate], map: "idx_assignments_status_date")
+  @@map("event_assignments")
+}
+
+model StaffWorkHistory {
+  id             String   @id @default(cuid())
+  registrationId String   @map("registration_id")
+  assignmentId   String?  @unique @map("assignment_id")
+  eventName      String   @map("event_name")
+  role           String
+  city           String
+  workDate       String   @map("work_date")
+  shiftHours     Float?   @map("shift_hours")
+  payRate        Float?   @map("pay_rate")
+  rating         Int?
+  notes          String?
+  source         String   @default("assignment")
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  registration StaffRegistration @relation(fields: [registrationId], references: [id], onDelete: Cascade)
+  assignment   EventAssignment?  @relation(fields: [assignmentId], references: [id], onDelete: SetNull)
+
+  @@index([registrationId], map: "idx_work_history_staff")
+  @@map("staff_work_history")
+}
