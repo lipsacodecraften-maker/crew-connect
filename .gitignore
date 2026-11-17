@@ -1,8 +1,22 @@
-node_modules
-.next
-out
-build
+
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+build/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Build and cache
+*.tsbuildinfo
 .DS_Store
 *.log
-.env*.local
+
+# Local data
 data/
