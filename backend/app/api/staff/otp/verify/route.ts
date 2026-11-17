@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (!/^\d{6}$/.test(code)) {
-    return jsonError("Enter the 6-digit code from WhatsApp.", 400);
+    return jsonError("Enter the 6-digit code from the text message.", 400);
   }
 
   const challenge = await getLatestOtpChallenge(phone);

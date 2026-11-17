@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
 
   if (configured && !delivery.delivered) {
     return jsonError(
-      "We could not send the WhatsApp code right now. Please try again.",
+      "We could not send the text message code right now. Please try again.",
       502,
       { challengeId },
     );
@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
 
   if (!configured && process.env.NODE_ENV === "production") {
     return jsonError(
-      "WhatsApp OTP delivery is not configured. Contact the candidate desk.",
+      "Text message OTP delivery is not configured. Contact the candidate desk.",
       503,
       { challengeId },
     );
