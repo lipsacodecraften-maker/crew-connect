@@ -2,7 +2,10 @@
   "name": "crewconnect",
   "version": "0.1.0",
   "private": true,
-  "workspaces": ["backend", "frontend"],
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace=backend\" \"npm run dev --workspace=frontend\"",
     "dev:backend": "npm run dev --workspace=backend",
@@ -10,7 +13,8 @@
     "build": "npm run build --workspace=backend && npm run build --workspace=frontend"
   },
   "dependencies": {
-    "next": "^16.2.9"
+    "@prisma/client": "^6.19.2",
+    "next": "^16.4.6"
   },
   "devDependencies": {
     "concurrently": "^9.0.0"
