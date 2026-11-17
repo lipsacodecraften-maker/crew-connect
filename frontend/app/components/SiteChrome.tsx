@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 
 import SiteHeader from "./SiteHeader";
-import SiteFooter from "./SiteFooter";
+// import SiteFooter from "./SiteFooter";
 
 /**
  * The public site and the admin dashboard share a root layout, but the admin
@@ -21,7 +21,7 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
     <>
       {hideChrome ? null : <SiteHeader />}
       {children}
-      {hideChrome ? null : <SiteFooter />}
+      {/* {hideChrome ? null : <SiteFooter />} */}
     </>
   );
 }
