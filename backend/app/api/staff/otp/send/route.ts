@@ -87,13 +87,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  if (!configured && process.env.NODE_ENV === "production") {
-    return jsonError(
-      "Text message OTP delivery is not configured. Contact the candidate desk.",
-      503,
-      { challengeId },
-    );
-  }
+  // Allow OTP flow even when no provider is configured by logging the code server-side.
 
   return NextResponse.json({
     ok: true,
