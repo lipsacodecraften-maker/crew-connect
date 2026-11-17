@@ -9,6 +9,9 @@
     "dev:frontend": "npm run dev --workspace=frontend",
     "build": "npm run build --workspace=backend && npm run build --workspace=frontend"
   },
+  "dependencies": {
+    "next": "^16.2.9"
+  },
   "devDependencies": {
     "concurrently": "^9.0.0"
   }
