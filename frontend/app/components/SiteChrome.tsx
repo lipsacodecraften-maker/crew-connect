@@ -21,7 +21,7 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
     <>
       {hideChrome ? null : <SiteHeader />}
       {children}
-      {/* {hideChrome ? null : <SiteFooter />} */}
+      {hideChrome ? null : <SiteFooter />}
     </>
   );
 }
