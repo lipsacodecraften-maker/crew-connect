@@ -136,7 +136,19 @@ export default function ServicesPage() {
                 <div className={`${styles.serviceGrid} ${styles.expandIn}`}>
                   {(showAll[category.id] ? category.services : category.services.slice(0, 6)).map((service) => (
                     <article className={styles.serviceCard} key={service.name}>
-                      <h4>{service.name}</h4>
+                    {(service as any).image ? (
+                      <div className={styles.serviceImage}>
+                        <Image
+                          src={(service as any).image}
+                          alt={service.name}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 33vw"
+                          className={styles.servicePhoto}
+                        />
+                      </div>
+                    ) : null}
+
+                    <h4>{service.name}</h4>
 
                       <p>{service.description}</p>
 
