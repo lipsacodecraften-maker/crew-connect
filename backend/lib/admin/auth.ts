@@ -375,8 +375,8 @@ export async function authorizeAdminRequest(
   return { ok: false, response: adminJsonError("Unauthorized.", 401) };
 }
 
-export function can(session: AdminSessionUser, permission: AdminPermission) {
-  return session.permissions.includes(permission);
+export function can(session: AdminSessionUser | null, permission: AdminPermission) {
+  return Boolean(session?.permissions?.includes(permission));
 }
 
 export { revokeAdminSessionsForAdmin };

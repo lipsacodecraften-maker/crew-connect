@@ -7,29 +7,29 @@ const prisma = new PrismaClient();
 
 const DEMO_ACCOUNTS = [
   {
-    name: "Demo Super Admin",
-    email: "superadmin@crewconnect.local",
-    password: "CrewConnect#2026",
+    name: "Super Admin",
+    email: "superadmin@gmail.com",
+    password: "superadmin#2026",
     role: "super_admin",
   },
-  {
-    name: "Demo Operations Manager",
-    email: "manager@crewconnect.local",
-    password: "Manager#2026",
-    role: "operations_manager",
-  },
-  {
-    name: "Demo Coordinator",
-    email: "coordinator@crewconnect.local",
-    password: "Coordinator#2026",
-    role: "coordinator",
-  },
-  {
-    name: "Demo Viewer",
-    email: "viewer@crewconnect.local",
-    password: "Viewer#2026",
-    role: "viewer",
-  },
+  // {
+  //   name: "Demo Operations Manager",
+  //   email: "manager@crewconnect.local",
+  //   password: "Manager#2026",
+  //   role: "operations_manager",
+  // },
+  // {
+  //   name: "Demo Coordinator",
+  //   email: "coordinator@crewconnect.local",
+  //   password: "Coordinator#2026",
+  //   role: "coordinator",
+  // },
+  // {
+  //   name: "Demo Viewer",
+  //   email: "viewer@crewconnect.local",
+  //   password: "Viewer#2026",
+  //   role: "viewer",
+  // },
 ];
 
 async function hashPassword(password) {
