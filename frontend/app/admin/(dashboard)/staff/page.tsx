@@ -240,9 +240,9 @@ export default async function StaffPage({
             <button type="submit" className="admin-btn is-primary">
               <FiFilter aria-hidden="true" /> Apply
             </button>
-            <Link href="/admin/staff" className="admin-btn is-ghost">
+            <a href="/admin/staff" className="admin-btn is-ghost">
               <FiRefreshCw aria-hidden="true" /> Reset
-            </Link>
+            </a>
           </div>
         </div>
       </form>

@@ -207,9 +207,9 @@ export default async function JobsPage({
             <button type="submit" className="admin-btn is-primary">
               <FiFilter aria-hidden="true" /> Apply
             </button>
-            <Link href="/admin/jobs" className="admin-btn is-ghost">
+            <a href="/admin/jobs" className="admin-btn is-ghost">
               <FiRefreshCw aria-hidden="true" /> Reset
-            </Link>
+            </a>
           </form>
         </div>
 

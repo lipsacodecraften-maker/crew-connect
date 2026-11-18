@@ -244,9 +244,9 @@ export default async function BookingsPage({
             <button type="submit" className="admin-btn is-primary">
               <FiFilter aria-hidden="true" /> Apply
             </button>
-            <Link href="/admin/bookings" className="admin-btn is-ghost">
+            <a href="/admin/bookings" className="admin-btn is-ghost">
               <FiRefreshCw aria-hidden="true" /> Reset
-            </Link>
+            </a>
           </div>
         </div>
       </form>
