@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { FiMenu } from "react-icons/fi";
 
@@ -11,7 +12,12 @@ export default function StaffShell({
   name: string;
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   const nav = [
     { href: "/staff", label: "Dashboard" },
@@ -34,7 +40,7 @@ export default function StaffShell({
         </div>
         <nav className="admin-nav" aria-label="Staff sections">
           {nav.map((item) => (
-            <Link key={item.href} href={item.href} className="admin-nav-link">
+            <Link key={item.href} href={item.href} className="admin-nav-link" onClick={() => setOpen(false)}>
               {item.label}
             </Link>
           ))}
