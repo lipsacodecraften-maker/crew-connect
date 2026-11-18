@@ -634,7 +634,6 @@
 .admin-btn.is-primary {
   border-color: var(--adm-accent);
   background: var(--adm-accent);
-  margin-top: 20px;
   color: #fff;
   box-shadow: 0 6px 18px rgba(232, 117, 50, 0.2);
 }
@@ -644,10 +643,6 @@
   border-color: #f28b4b;
 }
 
-.admin-btn.is-ghost {
-  background: transparent;
-  margin-left: 20px;
-}
 
 .admin-btn.is-danger {
   border-color: rgba(240, 100, 100, 0.35);
