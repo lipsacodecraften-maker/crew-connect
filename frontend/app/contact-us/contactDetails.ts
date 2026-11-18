@@ -1,8 +1,8 @@
 export const CONTACT = {
-  phoneDisplay: "+91 79 4001 8820",
-  phoneHref: "tel:+917940018820",
-  whatsappNumber: "917940018820",
-  whatsappHref: "https://wa.me/917940018820",
+  phoneDisplay: "+91 9510572460",
+  phoneHref: "tel:+919510572460",
+  whatsappNumber: "919510572460",
+  whatsappHref: "https://wa.me/919510572460",
   deskHours: "Mon–Sat · 10:00–19:00 IST",
   serviceLine: "Ahmedabad · Gandhinagar · Vadodara · Surat",
   location: "Gujarat, India",

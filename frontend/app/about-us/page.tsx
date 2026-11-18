@@ -1,6 +1,45 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { FiUsers, FiShield, FiClock, FiTrendingUp, FiMapPin } from "react-icons/fi";
 import styles from "./AboutUs.module.css";
+
+function AnimatedStat({ value, label }: { value: string; label: string }) {
+  const match = value.match(/^([\d,]+(?:\.\d+)?)(.*)$/);
+  const numeric = match ? parseFloat(match[1].replace(/,/g, "")) : 0;
+  const suffix = match ? match[2] : "";
+  const decimals = match && match[1].includes(".") ? match[1].split(".")[1].length : 0;
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start: number | null = null;
+    const duration = 1400;
+    const step = (timestamp: number) => {
+      if (start === null) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(numeric * eased);
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [numeric]);
+
+  const display =
+    decimals > 0
+      ? count.toFixed(decimals)
+      : Math.round(count).toLocaleString();
+
+  return (
+    <div className={styles.statCard}>
+      <span className={styles.statValue}>
+        {display}
+        {suffix}
+      </span>
+      <span className={styles.statLabel}>{label}</span>
+    </div>
+  );
+}
 
 export default function AboutUs() {
   const stats = [
@@ -49,10 +88,7 @@ export default function AboutUs() {
 
       <section className={styles.statsGrid}>
         {stats.map((stat, idx) => (
-          <div key={idx} className={styles.statCard}>
-            <span className={styles.statValue}>{stat.value}</span>
-            <span className={styles.statLabel}>{stat.label}</span>
-          </div>
+          <AnimatedStat key={idx} value={stat.value} label={stat.label} />
         ))}
       </section>
 

@@ -344,7 +344,7 @@ function SuccessScreen({ result, onReset }) {
           </button>
           <a
             className="mp-btn mp-btn-ghost"
-            href="https://wa.me/917940018820"
+            href="https://wa.me/919510572460"
             target="_blank"
             rel="noreferrer"
           >
@@ -1708,8 +1708,8 @@ export default function StaffRegistrationWizard() {
                 <b>03</b> Shortlisted crew receive shift briefs on WhatsApp.
               </li>
             </ol>
-            <a href="https://wa.me/917940018820" target="_blank" rel="noreferrer">
-              Talk to the candidate desk <strong>+91 79 4001 8820 ↗</strong>
+            <a href="https://wa.me/919510572460" target="_blank" rel="noreferrer">
+              Talk to the candidate desk <strong>+91 9510572460 ↗</strong>
             </a>
           </div>
 

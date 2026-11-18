@@ -5,8 +5,8 @@ import "../hire-manpower/hire-manpower.css";
 import "./join-as-staff.css";
 import StaffRegistrationWizard from "./StaffRegistrationWizard";
 
-const DESK_PHONE = "+91 79 4001 8820";
-const DESK_PHONE_HREF = "tel:+917940018820";
+const DESK_PHONE = "+91 9510572460";
+const DESK_PHONE_HREF = "tel:+919510572460";
 
 function RosterCount() {
   const [count, setCount] = useState(0);

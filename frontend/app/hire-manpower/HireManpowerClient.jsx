@@ -30,8 +30,8 @@ import {
   validateStep,
 } from "@/lib/booking/validation";
 
-const DESK_PHONE = "+91 79 4001 8820";
-const DESK_PHONE_HREF = "tel:+917940018820";
+const DESK_PHONE = "+91 9510572460";
+const DESK_PHONE_HREF = "tel:+919510572460";
 
 function Field({ label, error, hint, className = "", children }) {
   return (

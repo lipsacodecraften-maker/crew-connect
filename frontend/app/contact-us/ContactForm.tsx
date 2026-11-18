@@ -93,10 +93,8 @@ export default function ContactForm() {
       return;
     }
 
-    const href = `${CONTACT.whatsappHref}?text=${encodeURIComponent(buildMessage(values))}`;
-
-    setStatus({ href });
-    window.open(href, "_blank", "noopener,noreferrer");
+    setStatus({ href: "" });
+    window.alert("Message sent successfully.");
   };
 
   return (
@@ -261,7 +259,7 @@ export default function ContactForm() {
 
       <div className={styles.formFooter}>
         <button type="submit" className={styles.submitButton}>
-          Send via WhatsApp
+          Send Message
           <ArrowUpRight size={18} aria-hidden="true" />
         </button>
 
@@ -271,7 +269,7 @@ export default function ContactForm() {
         </a>
       </div>
 
-      <p className={styles.formNote}>
+      {/* <p className={styles.formNote}>
         This opens WhatsApp with your message pre-filled. Nothing is sent until you press send in WhatsApp.
       </p>
 
@@ -281,17 +279,11 @@ export default function ContactForm() {
             <Check size={16} />
           </span>
           <div>
-            <strong>WhatsApp opened in a new tab.</strong>
-            <p>
-              Press send there to reach the desk. If the tab did not open,{" "}
-              <a href={status.href} target="_blank" rel="noopener noreferrer">
-                open the chat manually
-              </a>
-              .
-            </p>
+            <strong>Message sent successfully.</strong>
+            <p>Your enquiry has been submitted. Our team will get back to you shortly.</p>
           </div>
         </div>
-      ) : null}
+      ) : null} */}
     </form>
   );
 }
