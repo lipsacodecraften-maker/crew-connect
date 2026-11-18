@@ -2,37 +2,39 @@
 import styles from "./CitiesWeServe.module.css";
 import { MapPin, ArrowUpRight } from "lucide-react";
 
+
+
 const cities = [
   {
     code: "AMD",
     name: "Ahmedabad",
-    region: "CENTRAL GUJARAT",
+    region: "GUJARAT · WEST INDIA",
     description:
       "Professional staffing support for weddings, corporate events, exhibitions, and live experiences.",
     number: "01",
   },
   {
-    code: "GNR",
-    name: "Gandhinagar",
-    region: "NORTH-CENTRAL GUJARAT",
+    code: "JAI",
+    name: "Jaipur",
+    region: "RAJASTHAN · NORTH INDIA",
     description:
-      "Reliable event crew for conferences, business gatherings, exhibitions, and special occasions.",
+      "Reliable event crew for destination weddings, cultural festivals, corporate events, and celebrations.",
     number: "02",
   },
   {
-    code: "BRC",
-    name: "Vadodara",
-    region: "CENTRAL GUJARAT",
+    code: "MUM",
+    name: "Mumbai",
+    region: "MAHARASHTRA · WEST INDIA",
     description:
-      "Organized manpower support for celebrations, corporate functions, and event operations.",
+      "Organized manpower support for exhibitions, concerts, corporate functions, and large gatherings.",
     number: "03",
   },
   {
-    code: "ST",
-    name: "Surat",
-    region: "SOUTH GUJARAT",
+    code: "DEL",
+    name: "New Delhi",
+    region: "DELHI · NORTH INDIA",
     description:
-      "Event staffing solutions for weddings, exhibitions, hospitality, and large gatherings.",
+      "Professional event staffing for conferences, exhibitions, weddings, and premium corporate events.",
     number: "04",
   },
 ];
@@ -49,15 +51,14 @@ export default function CitiesWeServe() {
             </span>
 
             <h2 className={styles.heading}>
-              LOCAL PRESENCE.
+              OUR NETWORK.
               <br />
-              <span>GUJARAT-WIDE</span> REACH.
+              <span>YOUR CITY.</span>
             </h2>
           </div>
 
           <p className={styles.intro}>
-            Wherever your event takes place, CrewConnect helps you access
-            professional event staffing support across key cities in Gujarat.
+            "From metropolitan hubs to emerging event destinations, CrewConnect is building a reliable event staffing network across India."
           </p>
         </div>
 
@@ -94,7 +95,7 @@ export default function CitiesWeServe() {
             </p>
           </div>
 
-          <a href="/contact" className={styles.contactLink}>
+          <a href="/contact-us" className={styles.contactLink}>
             CHECK AVAILABILITY <ArrowUpRight size={17} />
           </a>
         </div>

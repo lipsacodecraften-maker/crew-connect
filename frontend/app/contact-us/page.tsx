@@ -20,7 +20,6 @@ export const metadata: Metadata = {
 const QUICK_ROUTES = [
   { label: "Hire manpower", description: "Build a crew for your event", href: "/hire-manpower" },
   { label: "Join as staff", description: "Register as event crew", href: "/join-as-staff" },
-  { label: "Available jobs", description: "Browse open shifts", href: "/available-jobs" },
   { label: "Track a booking", description: "Check your request status", href: "/hire-manpower/track" },
 ] as const;
 

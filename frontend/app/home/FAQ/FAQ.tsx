@@ -15,7 +15,7 @@ const faqs = [
   {
     question: "Which cities do you currently serve?",
     answer:
-      "Our primary service locations include Ahmedabad, Gandhinagar, Vadodara, and Surat. For events in other Gujarat locations, contact our team to check staffing availability.",
+      "Our primary service locations include Ahmedabad, Jaipur, Mumbai, and New Delhi. For events in other locations, contact our team to check staffing availability.",
   },
   {
     question: "What types of staffing roles can I request?",

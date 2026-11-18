@@ -22,7 +22,7 @@ const contactOptions = [
     description:
       "Planning an event? Talk to our team about your staffing requirements.",
     action: "REQUEST STAFF",
-    href: "/contact",
+    href: "/contact-us",
   },
   {
     number: "02",
@@ -41,7 +41,7 @@ const contactOptions = [
     description:
       "Have a question about CrewConnect? Send us your enquiry.",
     action: "CONTACT OUR TEAM",
-    href: "/contact",
+    href: "/contact-us",
   },
 ];
 
@@ -119,7 +119,7 @@ export default function ContactSupport() {
 
             <div>
               <span className={styles.bottomLabel}>OUR SERVICE NETWORK</span>
-              <p>Ahmedabad · Gandhinagar · Vadodara · Surat</p>
+              <p>Ahmedabad · Jaipur · Mumbai · New Delhi</p>
             </div>
           </div>
 
@@ -134,7 +134,7 @@ export default function ContactSupport() {
             </div>
           </div>
 
-          <Link href="/contact" className={styles.mainButton}>
+          <Link href="/contact-us" className={styles.mainButton}>
             GET IN TOUCH
             <ArrowUpRight size={19} />
           </Link>

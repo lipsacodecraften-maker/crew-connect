@@ -33,15 +33,70 @@ import {
 const DESK_PHONE = "+91 9510572460";
 const DESK_PHONE_HREF = "tel:+919510572460";
 
-function Field({ label, error, hint, className = "", children }) {
+const NAME_PATTERN = /^[A-Za-z ]+$/;
+const PHONE_PATTERN = /^[0-9]{10}$/;
+const EMAIL_PATTERN =
+  /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+function validateContactFormats(form) {
+  const errors = {};
+
+  if (
+    form.contactPerson.trim() &&
+    !NAME_PATTERN.test(form.contactPerson.trim())
+  ) {
+    errors.contactPerson = "Name can contain only letters and spaces.";
+  }
+
+  if (
+    form.mobileNumber &&
+    !PHONE_PATTERN.test(form.mobileNumber)
+  ) {
+    errors.mobileNumber = "Enter exactly 10 digits.";
+  }
+
+  if (
+    form.whatsappNumber &&
+    !PHONE_PATTERN.test(form.whatsappNumber)
+  ) {
+    errors.whatsappNumber = "Enter exactly 10 digits.";
+  }
+
+  const email = form.emailAddress.trim();
+
+  if (email && !EMAIL_PATTERN.test(email)) {
+    errors.emailAddress = "Enter a valid email address.";
+  }
+
+  return errors;
+}
+
+
+function Field({
+  label,
+  error,
+  hint,
+  required = true,
+  className = "",
+  children,
+}) {
   return (
     <label className={`mp-field ${className}`.trim()}>
       <span className="mp-label">
         {label}
-        <em>*</em>
+        {required ? (
+          <em>*</em>
+        ) : (
+          <small className="mp-optional"> (Optional)</small>
+        )}
       </span>
+
       {children}
-      {hint && !error ? <small className="mp-hint">{hint}</small> : null}
+
+      {hint && !error ? (
+        <small className="mp-hint">{hint}</small>
+      ) : null}
+
       {error ? (
         <small className="mp-error" role="alert">
           {error}
@@ -51,15 +106,19 @@ function Field({ label, error, hint, className = "", children }) {
   );
 }
 
-function YesNo({ label, value, onChange, error }) {
+
+function YesNo({ label, value, onChange, error, required = true }) {
   return (
     <fieldset
       className="mp-field mp-fieldset"
-      aria-invalid={Boolean(error)}
     >
       <legend className="mp-label">
         {label}
-        <em>*</em>
+        {required ? (
+          <em>*</em>
+        ) : (
+        <small className="mp-optional"> (Optional)</small>
+      )}
       </legend>
       <div className="mp-segmented">
         {["yes", "no"].map((option) => (
@@ -83,20 +142,16 @@ function YesNo({ label, value, onChange, error }) {
   );
 }
 
-function LanguagePicker({ value, onChange, error }) {
-  const toggle = (language) => {
-    onChange(
-      value.includes(language)
-        ? value.filter((item) => item !== language)
-        : [...value, language],
-    );
-  };
-
-  return (
+function LanguagePicker({ value, onChange, error, required = true }) {
+    return (
     <fieldset className="mp-field mp-fieldset mp-span-2">
       <legend className="mp-label">
         Language requirements
-        <em>*</em>
+        {required ? (
+          <em>*</em>
+        ) : (
+          <small className="mp-optional"> (Optional)</small>
+        )}
       </legend>
       <div className="mp-chips">
         {LANGUAGE_OPTIONS.map((language) => (
@@ -413,7 +468,12 @@ export default function HireManpowerClient() {
   const goNext = () => {
     if (stepIndex >= BOOKING_STEPS.length - 1) return;
 
-    const stepErrors = validateStep(currentStep.id, form);
+    const stepErrors = {
+      ...validateStep(currentStep.id, form),
+      ...(currentStep.id === "contact"
+        ? validateContactFormats(form)
+        : {}),
+    };
     setErrors(stepErrors);
     if (Object.keys(stepErrors).length > 0) return;
 
@@ -433,8 +493,10 @@ export default function HireManpowerClient() {
   };
 
   const submitBooking = async () => {
-    const bookingErrors = validateBooking(form);
-    setErrors(bookingErrors);
+    const bookingErrors = {
+      ...validateBooking(form),
+      ...validateContactFormats(form),
+    };
 
     if (Object.keys(bookingErrors).length > 0) {
       const stepId = firstErrorStep(bookingErrors);
@@ -444,8 +506,7 @@ export default function HireManpowerClient() {
         setMaxVisited((value) => Math.max(value, index));
       }
       setServerError(
-        `Please correct ${Object.keys(bookingErrors).length} highlighted ${
-          Object.keys(bookingErrors).length === 1 ? "field" : "fields"
+        `Please correct ${Object.keys(bookingErrors).length} highlighted ${Object.keys(bookingErrors).length === 1 ? "field" : "fields"
         } before submitting.`,
       );
       scrollToWizard();
@@ -487,7 +548,7 @@ export default function HireManpowerClient() {
         }
         setServerError(
           data?.message ||
-            "We could not submit the request. Check your connection and try again.",
+          "We could not submit the request. Check your connection and try again.",
         );
         scrollToWizard();
         return;
@@ -607,9 +668,8 @@ export default function HireManpowerClient() {
                 <button
                   key={step.id}
                   type="button"
-                  className={`mp-step ${index === stepIndex ? "is-active" : ""} ${
-                    index <= maxVisited && index !== stepIndex ? "is-complete" : ""
-                  }`.trim()}
+                  className={`mp-step ${index === stepIndex ? "is-active" : ""} ${index <= maxVisited && index !== stepIndex ? "is-complete" : ""
+                    }`.trim()}
                   aria-current={index === stepIndex ? "step" : undefined}
                   disabled={index > maxVisited}
                   onClick={() => goToStep(index)}
@@ -677,9 +737,14 @@ export default function HireManpowerClient() {
                     <input
                       type="text"
                       value={form.contactPerson}
-                      onChange={(event) =>
-                        update("contactPerson", event.target.value)
-                      }
+                      maxLength={60}
+                      onChange={(event) => {
+                        const value = event.target.value;
+
+                        if (/^[A-Za-z ]*$/.test(value)) {
+                          update("contactPerson", value);
+                        }
+                      }}
                       placeholder="Full name"
                       autoComplete="name"
                       aria-invalid={Boolean(errors.contactPerson)}
@@ -689,26 +754,38 @@ export default function HireManpowerClient() {
                   <Field label="Mobile number" error={errors.mobileNumber}>
                     <input
                       type="tel"
+                      inputMode="numeric"
+                      pattern="[0-9]{10}"
+                      maxLength={10}
                       value={form.mobileNumber}
-                      onChange={(event) =>
-                        update("mobileNumber", event.target.value)
-                      }
-                      placeholder="+91 98765 43210"
-                      autoComplete="tel"
-                      inputMode="tel"
+                      onChange={(event) => {
+                        const value = event.target.value;
+
+                        if (/^[0-9]*$/.test(value) && value.length <= 10) {
+                          update("mobileNumber", value);
+                        }
+                      }}
+                      placeholder="9876543210"
+                      autoComplete="tel-national"
                       aria-invalid={Boolean(errors.mobileNumber)}
                     />
                   </Field>
 
-                  <Field label="WhatsApp number" error={errors.whatsappNumber}>
+                  <Field label="WhatsApp number" error={errors.whatsappNumber} required={false}>
                     <input
                       type="tel"
+                      inputMode="numeric"
+                      pattern="[0-9]{10}"
+                      maxLength={10}
                       value={form.whatsappNumber}
-                      onChange={(event) =>
-                        update("whatsappNumber", event.target.value)
-                      }
-                      placeholder="+91 98765 43210"
-                      inputMode="tel"
+                      onChange={(event) => {
+                        const value = event.target.value;
+
+                        if (/^[0-9]*$/.test(value) && value.length <= 10) {
+                          update("whatsappNumber", value);
+                        }
+                      }}
+                      placeholder="9876543210"
                       aria-invalid={Boolean(errors.whatsappNumber)}
                     />
                   </Field>
@@ -716,14 +793,20 @@ export default function HireManpowerClient() {
                   <Field
                     label="Email address"
                     error={errors.emailAddress}
+                    required={false}
                     className="mp-span-2"
                   >
                     <input
                       type="email"
                       value={form.emailAddress}
-                      onChange={(event) =>
-                        update("emailAddress", event.target.value)
-                      }
+                      maxLength={100}
+                      onChange={(event) => {
+                        const value = event.target.value;
+
+                        if (!/\s/.test(value)) {
+                          update("emailAddress", value);
+                        }
+                      }}
                       placeholder="you@company.com"
                       autoComplete="email"
                       aria-invalid={Boolean(errors.emailAddress)}
@@ -733,6 +816,7 @@ export default function HireManpowerClient() {
                   <Field
                     label="Company type"
                     error={errors.companyType}
+                    required={false}
                     className="mp-span-2"
                   >
                     <select
@@ -820,7 +904,7 @@ export default function HireManpowerClient() {
                     </select>
                   </Field>
 
-                  <Field label="Expected guest count" error={errors.guestCount}>
+                  <Field label="Expected guest count" error={errors.guestCount} required={false}>
                     <input
                       type="number"
                       min="1"
@@ -849,7 +933,7 @@ export default function HireManpowerClient() {
                           eventStartDate: value,
                           eventEndDate:
                             previous.eventEndDate &&
-                            previous.eventEndDate < value
+                              previous.eventEndDate < value
                               ? value
                               : previous.eventEndDate,
                         }));
@@ -879,6 +963,7 @@ export default function HireManpowerClient() {
                   <Field
                     label="Budget per person / per shift"
                     error={errors.budgetPerPerson}
+                    required={false}
                     hint="Enter the indicative crew budget for one person on one shift. Final commercials are confirmed by the desk."
                     className="mp-span-2"
                   >
@@ -920,8 +1005,9 @@ export default function HireManpowerClient() {
                   </Field>
 
                   <Field
-                    label="Google Maps location (optional)"
+                    label="Google Maps location"
                     error={errors.mapsLocation}
+                    required={false}
                     hint="Paste a share link from Google Maps so the crew can find the exact gate."
                     className="mp-span-2"
                   >
@@ -978,26 +1064,32 @@ export default function HireManpowerClient() {
                       value={form.foodProvided}
                       onChange={(value) => update("foodProvided", value)}
                       error={errors.foodProvided}
+                      required={false}
                     />
+
                     <YesNo
                       label="Transport provided"
                       value={form.transportProvided}
                       onChange={(value) => update("transportProvided", value)}
                       error={errors.transportProvided}
+                      required={false}
                     />
+
                     <YesNo
                       label="Accommodation provided"
                       value={form.accommodationProvided}
-                      onChange={(value) =>
-                        update("accommodationProvided", value)
-                      }
+                      onChange={(value) => update("accommodationProvided", value)}
                       error={errors.accommodationProvided}
+                      required={false}
                     />
                   </div>
+
+
 
                   <Field
                     label="Dress code"
                     error={errors.dressCode}
+                    required={false}
                     className="mp-span-2"
                   >
                     <input
@@ -1010,13 +1102,11 @@ export default function HireManpowerClient() {
                       aria-invalid={Boolean(errors.dressCode)}
                     />
                   </Field>
-
                   <LanguagePicker
                     value={form.languageRequirements}
-                    onChange={(value) =>
-                      update("languageRequirements", value)
-                    }
+                    onChange={(value) => update("languageRequirements", value)}
                     error={errors.languageRequirements}
+                    required={false}
                   />
 
                   <FileField
@@ -1037,6 +1127,7 @@ export default function HireManpowerClient() {
                   <Field
                     label="Additional notes"
                     error={errors.additionalNotes}
+                    required={false}
                     className="mp-span-2"
                   >
                     <textarea
@@ -1178,6 +1269,7 @@ export default function HireManpowerClient() {
                             <Field
                               label="Gender preference"
                               error={errors[`${prefix}.genderPreference`]}
+                              required={false}
                               hint="Use only where the role genuinely requires it and it is lawful to do so."
                             >
                               <select
@@ -1298,6 +1390,7 @@ export default function HireManpowerClient() {
                               error={
                                 errors[`${prefix}.experienceRequirement`]
                               }
+                              required={false}
                             >
                               <select
                                 value={role.experienceRequirement}
@@ -1323,6 +1416,7 @@ export default function HireManpowerClient() {
                             <Field
                               label="Uniform requirement"
                               error={errors[`${prefix}.uniformRequirement`]}
+                              required={false}
                             >
                               <select
                                 value={role.uniformRequirement}
@@ -1350,6 +1444,7 @@ export default function HireManpowerClient() {
                               error={
                                 errors[`${prefix}.specialInstructions`]
                               }
+                              required={false}
                               className="mp-span-2"
                             >
                               <textarea
@@ -1544,8 +1639,8 @@ export default function HireManpowerClient() {
                         value={
                           form.referenceFile
                             ? `${form.referenceFile.name} · ${formatFileSize(
-                                form.referenceFile.size,
-                              )}`
+                              form.referenceFile.size,
+                            )}`
                             : "Not attached"
                         }
                       />

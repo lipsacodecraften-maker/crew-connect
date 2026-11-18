@@ -18,35 +18,42 @@ const EMPTY_FORM = {
 type FormValues = typeof EMPTY_FORM;
 type FormErrors = Partial<Record<keyof FormValues, string>>;
 
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 function validate(values: FormValues): FormErrors {
   const errors: FormErrors = {};
 
-  if (values.name.trim().length < 2) {
-    errors.name = "Enter your full name.";
+  // Full name: only alphabets and spaces
+  const namePattern = /^[A-Za-z ]+$/;
+
+  if (!values.name.trim()) {
+    errors.name = "Full name is required.";
+  } else if (values.name.trim().length < 2) {
+    errors.name = "Name must contain at least 2 characters.";
+  } else if (!namePattern.test(values.name.trim())) {
+    errors.name = "Name can contain only letters and spaces.";
   }
 
-  const digits = values.phone.replace(/\D/g, "");
-  if (digits.length < 10 || digits.length > 15) {
-    errors.phone = "Enter a valid phone number with 10–15 digits.";
+  // Mobile: exactly 10 digits
+  const phonePattern = /^[0-9]{10}$/;
+
+  if (!values.phone.trim()) {
+    errors.phone = "Mobile number is required.";
+  } else if (!phonePattern.test(values.phone)) {
+    errors.phone = "Enter a valid 10-digit mobile number.";
   }
 
-  if (values.email.trim() && !EMAIL_PATTERN.test(values.email.trim())) {
-    errors.email = "Enter a valid email address, or leave this blank.";
-  }
+  // Email validation
+  const email = values.email.trim();
 
-  if (!values.enquiry) {
-    errors.enquiry = "Choose what your enquiry is about.";
-  }
-
-  if (values.message.trim().length < 10) {
-    errors.message = "Tell us a little more — at least 10 characters.";
+  if (email && /\s/.test(email)) {
+    errors.email = "Email cannot contain spaces.";
+  } else if (email && !EMAIL_PATTERN.test(email)) {
+    errors.email = "Enter a valid email address.";
   }
 
   return errors;
 }
-
 function buildMessage(values: FormValues) {
   const lines = [
     "New enquiry from the CrewConnect contact page",
@@ -119,7 +126,14 @@ export default function ContactForm() {
             placeholder="Your name"
             required
             value={values.name}
-            onChange={(event) => update("name", event.target.value)}
+            maxLength={60}
+            onChange={(event) => {
+              const value = event.target.value;
+
+              if (/^[A-Za-z ]*$/.test(value)) {
+                update("name", value);
+              }
+            }}
             aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? "contact-name-error" : undefined}
           />
@@ -138,13 +152,20 @@ export default function ContactForm() {
             id="contact-phone"
             name="phone"
             type="tel"
-            inputMode="tel"
-            autoComplete="tel"
+            inputMode="numeric"
+            autoComplete="tel-national"
             className={styles.input}
-            placeholder="+91 98765 43210"
+            placeholder="9876543210"
             required
             value={values.phone}
-            onChange={(event) => update("phone", event.target.value)}
+            maxLength={10}
+            onChange={(event) => {
+              const value = event.target.value;
+
+              if (/^[0-9]*$/.test(value) && value.length <= 10) {
+                update("phone", value);
+              }
+            }}
             aria-invalid={Boolean(errors.phone)}
             aria-describedby={errors.phone ? "contact-phone-error" : undefined}
           />
@@ -166,8 +187,15 @@ export default function ContactForm() {
             autoComplete="email"
             className={styles.input}
             placeholder="you@company.com"
+            maxLength={100}
             value={values.email}
-            onChange={(event) => update("email", event.target.value)}
+            onChange={(event) => {
+              const value = event.target.value;
+
+              if (!/\s/.test(value)) {
+                update("email", value);
+              }
+            }}
             aria-invalid={Boolean(errors.email)}
             aria-describedby={errors.email ? "contact-email-error" : undefined}
           />
@@ -234,7 +262,7 @@ export default function ContactForm() {
 
         <div className={`${styles.field} ${styles.fieldFull}`}>
           <label className={styles.fieldLabel} htmlFor="contact-message">
-            Your message <span className={styles.required}>*</span>
+            Your message <span className={styles.required}></span>
           </label>
           <textarea
             id="contact-message"

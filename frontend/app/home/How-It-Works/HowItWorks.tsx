@@ -188,7 +188,7 @@ export default function HowItWorks() {
           <a
             href={
               activeTab === "organizer"
-                ? "/contact"
+                ? "/contact-us"
                 : "/hire-manpower"
             }
             className={styles.workflowCta}

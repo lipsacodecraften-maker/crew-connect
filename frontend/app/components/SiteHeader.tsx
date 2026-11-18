@@ -14,7 +14,7 @@ const NAV_LINKS = [
   { label: "Event Categories", href: "/event-categories" },
   { label: "Hire Manpower", href: "/hire-manpower" },
   { label: "Join as Staff", href: "/join-as-staff" },
-  { label: "Available Jobs", href: "/available-jobs" },
+  // { label: "Available Jobs", href: "/available-jobs" },
   { label: "Contact Us", href: "/contact-us" },
 ] as const;
 
@@ -77,7 +77,7 @@ export default function SiteHeader() {
 
             <span className={styles.brandLocation}>
               <FiMapPin className={styles.locationIcon} />
-              Gujarat, IN
+              PAN INDIA
             </span>
           </Link>
 

@@ -61,6 +61,40 @@ const STEP_ERROR_KEYS = {
   ],
 };
 
+const NAME_PATTERN = /^\p{L}+(?:\s+\p{L}+)*$/u;
+const PHONE_PATTERN = /^[6-9]\d{9}$/;
+const EMAIL_PATTERN =
+  /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+const PINCODE_PATTERN = /^\d{6}$/;
+
+function validatePersonalFormats(form) {
+  const errors = {};
+
+  const name = form.fullName.trim();
+  const phone = form.mobileNumber.trim();
+  const email = form.emailAddress.trim();
+  const pincode = form.areaPincode.trim();
+
+  if (name && !NAME_PATTERN.test(name)) {
+    errors.fullName = "Enter a valid name using letters and spaces only.";
+  }
+
+  if (phone && !PHONE_PATTERN.test(phone)) {
+    errors.mobileNumber =
+      "Enter a valid 10-digit Indian mobile number starting with 6–9.";
+  }
+
+  if (email && !EMAIL_PATTERN.test(email)) {
+    errors.emailAddress = "Enter a valid email address.";
+  }
+
+  if (pincode && !PINCODE_PATTERN.test(pincode)) {
+    errors.areaPincode = "Enter a valid 6-digit pincode.";
+  }
+
+  return errors;
+}
+
 function FieldError({ error }) {
   if (!error) return null;
   return (
@@ -473,11 +507,17 @@ export default function StaffRegistrationWizard() {
   };
 
   const stepErrorsFor = (stepId) => {
-    const all = validateRegistration(form);
+    const all = {
+      ...validateRegistration(form),
+      ...validatePersonalFormats(form),
+    };
+
     const next = {};
+
     for (const key of STEP_ERROR_KEYS[stepId] || []) {
       if (all[key]) next[key] = all[key];
     }
+
     return next;
   };
 
@@ -725,21 +765,10 @@ export default function StaffRegistrationWizard() {
       return;
     }
 
-    const allErrors = validateRegistration(form);
-    if (Object.keys(allErrors).length > 0) {
-      setErrors(allErrors);
-      const firstStep = STAFF_STEPS.findIndex((step) =>
-        (STEP_ERROR_KEYS[step.id] || []).some((key) => allErrors[key]),
-      );
-      if (firstStep >= 0) {
-        setStepIndex(firstStep);
-        setMaxVisited((previous) => Math.max(previous, firstStep));
-      }
-      setServerError(
-        "Some details still need attention. Review the highlighted fields.",
-      );
-      return;
-    }
+    const allErrors = {
+      ...validateRegistration(form),
+      ...validatePersonalFormats(form),
+    };
 
     if (!form.profilePhoto) {
       setErrors({ profilePhoto: "Add a clear profile photo." });
@@ -753,17 +782,17 @@ export default function StaffRegistrationWizard() {
         ...form,
         profilePhoto: form.profilePhoto
           ? {
-              name: form.profilePhoto.name,
-              type: form.profilePhoto.type,
-              size: form.profilePhoto.size,
-            }
+            name: form.profilePhoto.name,
+            type: form.profilePhoto.type,
+            size: form.profilePhoto.size,
+          }
           : null,
         resume: form.resume
           ? {
-              name: form.resume.name,
-              type: form.resume.type,
-              size: form.resume.size,
-            }
+            name: form.resume.name,
+            type: form.resume.type,
+            size: form.resume.size,
+          }
           : null,
         supportingDocuments: form.supportingDocuments.map((file) => ({
           name: file.name,
@@ -804,7 +833,7 @@ export default function StaffRegistrationWizard() {
         }
         setServerError(
           data?.message ||
-            "We could not submit your registration. Please try again.",
+          "We could not submit your registration. Please try again.",
         );
         return;
       }
@@ -857,9 +886,8 @@ export default function StaffRegistrationWizard() {
           <button
             key={item.id}
             type="button"
-            className={`mp-step ${index === stepIndex ? "is-active" : ""} ${
-              index <= maxVisited && index !== stepIndex ? "is-complete" : ""
-            }`.trim()}
+            className={`mp-step ${index === stepIndex ? "is-active" : ""} ${index <= maxVisited && index !== stepIndex ? "is-complete" : ""
+              }`.trim()}
             aria-current={index === stepIndex ? "step" : undefined}
             disabled={index > maxVisited}
             onClick={() => index <= maxVisited && goToStep(index)}
@@ -911,8 +939,11 @@ export default function StaffRegistrationWizard() {
                 <input
                   type="text"
                   value={form.fullName}
-                  onChange={(event) => update("fullName", event.target.value)}
-                  placeholder="e.g. Aarav Jayeshbhai Patel"
+                  onChange={(event) => {
+                    const value = event.target.value.replace(/[^\p{L}\s]/gu, "");
+                    update("fullName", value);
+                  }}
+                  maxLength={80} placeholder="e.g. Aarav Jayeshbhai Patel"
                   autoComplete="name"
                   aria-invalid={Boolean(errors.fullName)}
                 />
@@ -947,11 +978,15 @@ export default function StaffRegistrationWizard() {
                 <input
                   type="email"
                   value={form.emailAddress}
-                  onChange={(event) =>
-                    update("emailAddress", event.target.value)
-                  }
-                  placeholder="you@example.com"
+                  onChange={(event) => {
+                    update(
+                      "emailAddress",
+                      event.target.value.replace(/\s/g, "").slice(0, 100)
+                    );
+                  }}
+                  maxLength={100}
                   autoComplete="email"
+                  placeholder="you@example.com"
                   aria-invalid={Boolean(errors.emailAddress)}
                 />
               </Field>
@@ -965,13 +1000,16 @@ export default function StaffRegistrationWizard() {
                     <b aria-hidden="true">+91</b>
                     <input
                       type="tel"
+                      inputMode="numeric"
+                      pattern="[0-9]{10}"
+                      maxLength={10}
                       value={form.mobileNumber}
-                      onChange={(event) =>
-                        update("mobileNumber", event.target.value)
-                      }
+                      onChange={(event) => {
+                        const value = event.target.value.replace(/\D/g, "").slice(0, 10);
+                        update("mobileNumber", value);
+                      }}
                       placeholder="98765 43210"
                       autoComplete="tel-national"
-                      inputMode="numeric"
                       aria-label="WhatsApp mobile number"
                       aria-invalid={Boolean(errors.mobileNumber)}
                     />
@@ -1041,13 +1079,12 @@ export default function StaffRegistrationWizard() {
                 ) : null}
                 {otp.message ? (
                   <small
-                    className={`join-otp-message ${
-                      otp.status === "error"
-                        ? "is-error"
-                        : otp.status === "verified"
-                          ? "is-success"
-                          : ""
-                    }`}
+                    className={`join-otp-message ${otp.status === "error"
+                      ? "is-error"
+                      : otp.status === "verified"
+                        ? "is-success"
+                        : ""
+                      }`}
                   >
                     {otp.message}
                   </small>
@@ -1085,9 +1122,10 @@ export default function StaffRegistrationWizard() {
                 <input
                   type="text"
                   value={form.areaPincode}
-                  onChange={(event) =>
-                    update("areaPincode", event.target.value)
-                  }
+                  onChange={(event) => {
+                    const value = event.target.value.replace(/\D/g, "").slice(0, 6);
+                    update("areaPincode", value);
+                  }}
                   placeholder="e.g. 380015"
                   inputMode="numeric"
                   maxLength={6}
@@ -1713,7 +1751,7 @@ export default function StaffRegistrationWizard() {
             </a>
           </div>
 
-          <div className="mp-side-card mp-side-status">
+          {/* <div className="mp-side-card mp-side-status">
             <span className="mp-eyebrow">No fee, ever</span>
             <p>
               Registration is free. CrewConnect never charges candidates for
@@ -1722,7 +1760,7 @@ export default function StaffRegistrationWizard() {
             <a href="#crew-faq">
               Read the candidate FAQ <span aria-hidden="true">→</span>
             </a>
-          </div>
+          </div> */}
         </aside>
       </div>
     </section>

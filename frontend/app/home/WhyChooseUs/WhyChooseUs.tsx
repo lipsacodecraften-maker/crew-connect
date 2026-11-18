@@ -92,7 +92,7 @@ export default function WhyChooseUs() {
               operational support to help every event run smoothly.
             </p>
 
-            <a href="/contact" className={styles.cta}>
+            <a href="/contact-us" className={styles.cta}>
               HIRE PROFESSIONAL STAFF
               <span>↗</span>
             </a>

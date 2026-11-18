@@ -36,7 +36,7 @@ export default function HomeMain() {
               </a>
 
               <a className={styles.ctaGhost} href="/join-as-staff">
-                JOIN OUR CREW <span aria-hidden="true">↗</span>
+                JOIN AS STAFF <span aria-hidden="true">↗</span>
               </a>
             </div>
           </div>
@@ -81,7 +81,7 @@ export default function HomeMain() {
                   Direct-vetted front-of-house stewards and stage technicians assigned to ongoing sessions.
                 </p>
 
-                <a className={styles.sideCardFooter} href="/events">
+                <a className={styles.sideCardFooter} href="/event-categories">
                   <span>EXPLORE EVENTS</span>
                   <span className={styles.sideCardArrow} aria-hidden="true">
                     ↗

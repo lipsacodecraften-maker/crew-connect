@@ -39,8 +39,8 @@ export default function StaffCTA() {
               events, exhibitions, and live experiences.
             </p>
 
-            <Link href="/hire-manpower" className={styles.registerButton}>
-              JOIN OUR CREW
+            <Link href="/join-as-staff" className={styles.registerButton}>
+              JOIN AS STAFF
               <ArrowUpRight size={20} />
             </Link>
 
@@ -85,7 +85,7 @@ export default function StaffCTA() {
                 <BriefcaseBusiness size={15} />
                 EVENT STAFF OPPORTUNITIES
               </span>
-              <span>GUJARAT, INDIA</span>
+              <span>PAN INDIA</span>
             </div>
           </div>
 

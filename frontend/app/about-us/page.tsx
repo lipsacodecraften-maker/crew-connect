@@ -124,7 +124,7 @@ export default function AboutUs() {
           Hire Manpower
         </Link>
         <Link href="/join-as-staff" className={styles.secondaryBtn}>
-          Join Our Crew
+          Join As Staff
         </Link>
       </div>
     </main>

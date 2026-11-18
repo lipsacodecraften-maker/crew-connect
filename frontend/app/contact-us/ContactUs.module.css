@@ -546,7 +546,7 @@ a.channel:hover {
 .detailsPanel {
   position: sticky;
   top: 112px;
-  padding: clamp(22px, 2.6vw, 30px);
+  padding: clamp(22px, 2.6vw, 50px);
   border: 1px solid var(--cc-line);
   background: #0e0e0e;
 }

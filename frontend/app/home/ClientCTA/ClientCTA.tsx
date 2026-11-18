@@ -34,7 +34,7 @@ export default function ClientCTA() {
                 you find the right people for the right roles.
               </p>
 
-              <Link href="/contact" className={styles.primaryButton}>
+              <Link href="/contact-us" className={styles.primaryButton}>
                 REQUEST EVENT STAFF
                 <ArrowUpRight size={20} />
               </Link>
@@ -61,7 +61,7 @@ export default function ClientCTA() {
               </div>
 
               <div className={styles.visualBottom}>
-                <span>GUJARAT, INDIA</span>
+                <span>PAN INDIA</span>
                 <MoveRight size={20} />
               </div>
             </div>
