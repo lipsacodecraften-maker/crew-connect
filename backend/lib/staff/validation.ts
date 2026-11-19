@@ -89,6 +89,8 @@ export function validateRegistration(form: any, options: { requireWhatsApp?: boo
     errors.fullName = "Enter your name as it appears on your ID.";
   } else if (String(form.fullName).trim().length > 100) {
     errors.fullName = "Name must be 100 characters or fewer.";
+  } else if (!/^[A-Za-z ]+$/.test(String(form.fullName).trim())) {
+    errors.fullName = "Name can contain only letters and spaces.";
   }
 
   const phone = normalizePhoneNumber(form.mobileNumber);

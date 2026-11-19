@@ -71,7 +71,7 @@ function isTime(value: unknown) {
 
 function isPhone(value: unknown) {
   const digits = text(value).replace(/\D/g, "");
-  return digits.length >= 10 && digits.length <= 15;
+  return digits.length === 10;
 }
 
 function isEmail(value: unknown) {
@@ -136,6 +136,8 @@ export function validateContact(data: any) {
     errors.contactPerson = "Contact name must be at least 2 characters.";
   } else if (text(data.contactPerson).length > 80) {
     errors.contactPerson = "Contact name must be 80 characters or fewer.";
+  } else if (!/^[A-Za-z ]+$/.test(text(data.contactPerson))) {
+    errors.contactPerson = "Name can contain only letters and spaces.";
   }
 
   if (!hasValue(data.mobileNumber)) {
